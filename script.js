@@ -27,14 +27,16 @@ function handleClick(e) {
   const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
   placeMark(cell,currentClass)
   if (checWin(currentClass)){
-    console.log("winner")
     endGame(false)
+  } else if (isDraw()){
+    endGame(true)
+  } else {
+    swapTurns()
+    setBoardHoverClass()
   }
 
   // Check for Win
   // Check for draw
-  swapTurns()
-  setBoardHoverClass()
 }
 
 function placeMark(cell,currentClass) {
@@ -67,9 +69,16 @@ function checWin(currentClass){
 
 function endGame(draw) {
   if (draw) {
-
+    winningMessageTextElement.innerText = `Draw!`
   } else {
     winningMessageTextElement.innerText = `${circleTurn ? "O's" : "X's"} wins!`
   }
   winningMessageElem.classList.add("show")
+}
+
+function isDraw() {
+  return [...cellElements].every( cell => {
+    return cell.classList.contains(X_CLASS) ||
+    cell.classList.contains(CIRCLE_CLASS)
+  })
 }
