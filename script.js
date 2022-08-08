@@ -12,6 +12,8 @@ const WINNING_COMBINATIONS =[
 ]
 
 const cellElements = document.querySelectorAll("[data-cell")
+const marksOptionsMessage = document.getElementById("instructions")
+const marksOptions = document.querySelectorAll("[data-marks")
 const board = document.getElementById("board")
 const winningMessageTextElement = document.querySelector("[data-winning-message-text]")
 const winningMessageElem = document.getElementById("winningMessage")
@@ -19,20 +21,33 @@ const restartButton = document.getElementById("restartButton")
 
 let circleTurn
 
-startGame()
+marksOptions.forEach(option => {
+  option.addEventListener('click', pickMark, {once: true} )
+})
 
-restartButton.addEventListener("click",startGame)
 
-function startGame() {
-  console.log("starting");
-  circleTurn = false
+
+restartButton.addEventListener("click", startGame)
+
+
+function pickMark(e){
+  if (e.target.className === "oes") {
+    circleTurn = true
+  } else {
+    circleTurn = false
+  }
+  marksOptionsMessage.classList.add("hide")
+  startGame(circleTurn)
+}
+
+function startGame(circleTurn) {
   cellElements.forEach(cell => {
     cell.classList.remove(X_CLASS)
     cell.classList.remove(CIRCLE_CLASS)
     cell.removeEventListener('click', handleClick)
     cell.addEventListener('click', handleClick, {once: true} )
   })
-  setBoardHoverClass()
+  setBoardHoverClass(circleTurn)
   winningMessageElem.classList.remove("show")
 
 }

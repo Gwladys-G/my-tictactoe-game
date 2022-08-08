@@ -22,6 +22,10 @@ body {
   grid-template-columns: repeat(3,auto);
 }
 
+.hide {
+  display: none;
+}
+
 .cell {
   width: var(--cell-size);
   height: var(--cell-size);
@@ -143,4 +147,44 @@ body {
 
 .show{
   display: flex;
+}
+
+.instructions {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .9);
+  align-items: center;
+  color: white;
+  font-size: 5rem;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oes{
+  border: 2px solid  white;
+  padding: 5vw;
+}
+
+.xexes{
+  border: 2px solid  white;
+  margin-right: 10vw;
+  padding: 5vw;
+}
+
+#marks{
+  display: flex;
+  flex-direction: row;
+  margin-top: 10vw;
+}
+
+.oes:hover, .xexes:hover{
+  background-color: grey;
+  border: 2px solid  rgb(196, 187, 187);
+  color: white;
+  cursor: pointer;
 }
