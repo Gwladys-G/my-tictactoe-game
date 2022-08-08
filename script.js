@@ -1,7 +1,7 @@
 const X_CLASS = 'x'
 const CIRCLE_CLASS = 'circle'
 const WINNING_COMBINATIONS =[
-  [0,1,3],
+  [0,1,2],
   [3,4,5],
   [6,7,8],
   [0,3,6],
@@ -15,12 +15,27 @@ const cellElements = document.querySelectorAll("[data-cell")
 const board = document.getElementById("board")
 const winningMessageTextElement = document.querySelector("[data-winning-message-text]")
 const winningMessageElem = document.getElementById("winningMessage")
+const restartButton = document.getElementById("restartButton")
 
 let circleTurn
 
-cellElements.forEach(cell => {
-  cell.addEventListener('click', handleClick, {once: true} )
-})
+startGame()
+
+restartButton.addEventListener("click",startGame)
+
+function startGame() {
+  console.log("starting");
+  circleTurn = false
+  cellElements.forEach(cell => {
+    cell.classList.remove(X_CLASS)
+    cell.classList.remove(CIRCLE_CLASS)
+    cell.removeEventListener('click', handleClick)
+    cell.addEventListener('click', handleClick, {once: true} )
+  })
+  setBoardHoverClass()
+  winningMessageElem.classList.remove("show")
+
+}
 
 function handleClick(e) {
   const cell = e.target
@@ -34,9 +49,6 @@ function handleClick(e) {
     swapTurns()
     setBoardHoverClass()
   }
-
-  // Check for Win
-  // Check for draw
 }
 
 function placeMark(cell,currentClass) {
