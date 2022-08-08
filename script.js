@@ -18,8 +18,10 @@ const board = document.getElementById("board")
 const winningMessageTextElement = document.querySelector("[data-winning-message-text]")
 const winningMessageElem = document.getElementById("winningMessage")
 const restartButton = document.getElementById("restartButton")
+const statusMessage = document.getElementById("status")
 
 let circleTurn
+let playerOne
 
 marksOptions.forEach(option => {
   option.addEventListener('click', pickMark, {once: true} )
@@ -33,8 +35,10 @@ restartButton.addEventListener("click", startGame)
 function pickMark(e){
   if (e.target.className === "oes") {
     circleTurn = true
+    playerOne = "O"
   } else {
     circleTurn = false
+    playerOne = "X"
   }
   marksOptionsMessage.classList.add("hide")
   startGame(circleTurn)
@@ -47,6 +51,7 @@ function startGame(circleTurn) {
     cell.removeEventListener('click', handleClick)
     cell.addEventListener('click', handleClick, {once: true} )
   })
+  setStatus()
   setBoardHoverClass(circleTurn)
   winningMessageElem.classList.remove("show")
 
@@ -63,6 +68,7 @@ function handleClick(e) {
   } else {
     swapTurns()
     setBoardHoverClass()
+    setStatus()
   }
 }
 
@@ -108,4 +114,20 @@ function isDraw() {
     return cell.classList.contains(X_CLASS) ||
     cell.classList.contains(CIRCLE_CLASS)
   })
+}
+
+function setStatus () {
+  let marksTurn
+  let player
+  if(circleTurn){
+   marksTurn = "O"
+  } else {
+    marksTurn = "X"
+  }
+  if (playerOne === marksTurn){
+    player = 1
+  } else {
+    player = 2
+  }
+  statusMessage.innerText =`Player ${player}'s turn to make a move with an ${marksTurn}`
 }
