@@ -27,8 +27,6 @@ marksOptions.forEach(option => {
   option.addEventListener('click', pickMark, {once: true} )
 })
 
-
-
 restartButton.addEventListener("click", startGame)
 
 
@@ -90,7 +88,6 @@ function setBoardHoverClass() {
   }
 }
 
-
 function checWin(currentClass){
   return WINNING_COMBINATIONS.some(combination => {
     return combination.every(index => {
@@ -98,7 +95,6 @@ function checWin(currentClass){
     })
   })
 }
-
 
 function endGame(draw) {
   if (draw) {
